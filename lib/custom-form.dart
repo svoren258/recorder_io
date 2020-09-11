@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MyCustomForm extends StatelessWidget {
-  MyCustomForm({Key key, this.savedData: '', @required this.onChanged})
+class CustomForm extends StatelessWidget {
+  CustomForm({Key key, this.savedData: '', @required this.onChanged})
       : super(key: key);
 
   final ValueChanged<String> onChanged;
@@ -68,6 +68,10 @@ class MyCustomForm extends StatelessWidget {
                                     content: Text('Processing data')
                                 ));
                             _onSubmitButton(nameController.text);
+                            nameController.clear();
+                            ageController.clear();
+                            // hide keyboard
+                            FocusScope.of(context).requestFocus(FocusNode());
                             // Navigator.pop(context);
                           }
                         },

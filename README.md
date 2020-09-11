@@ -1,4 +1,4 @@
-# recorder_io
+# RECorder.io
 
 A new Flutter application.
 
