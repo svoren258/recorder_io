@@ -48,6 +48,7 @@ class _TitlePageState extends State<TitlePage> {
   void _onDeleteItem(String name) {
     setState(() {
       _nameList = _nameList.where((element) => element != name).toList();
+      _favoriteList = _favoriteList.where((element) => element != name).toList();
     });
   }
   
