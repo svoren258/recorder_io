@@ -21,8 +21,8 @@ class TabsNavigation extends StatelessWidget {
           title: Text('Home'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          title: Text('Business'),
+          icon: Icon(Icons.favorite),
+          title: Text('Favorite'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.school),

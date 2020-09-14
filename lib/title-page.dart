@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:recorder_io/name-list.dart';
 import 'package:recorder_io/side-menu.dart';
 import 'package:recorder_io/tabs-navigation.dart';
 import 'custom-form.dart';
@@ -12,6 +13,7 @@ class TitlePage extends StatefulWidget {
 class _TitlePageState extends State<TitlePage> {
   int _selectedTabIndex = 0;
   List<String> _nameList = List<String>();
+  List<String> _favoriteList = List<String>();
 
   void _updateList(String name) {
     setState(() {
@@ -43,25 +45,48 @@ class _TitlePageState extends State<TitlePage> {
     });
   }
 
-  List<Widget> _createNameList() {
-    return _nameList.map((name) => Container(
-        margin: EdgeInsets.only(top: 15),
-        child: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  child: Text(
-                    name,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Divider(thickness: 1)
-              ],
-            )
-        )
-    )
-    ).toList();
+  void _onDeleteItem(String name) {
+    setState(() {
+      _nameList = _nameList.where((element) => element != name).toList();
+    });
+  }
+  
+  void _toggleFavorite(String name) {
+    setState(() {
+      if (_favoriteList.contains(name)) {
+        _favoriteList = _favoriteList.where((element) => element != name).toList();
+      } else {
+        _favoriteList = [..._favoriteList, name];
+      }
+    });
+  }
+  
+  Widget _getSelectedTabView() {
+    if (_selectedTabIndex == 0) {
+      return NameList(
+        nameList: _nameList,
+        favoriteList: _favoriteList,
+        isListFavorite: false,
+        toggleFavorite: _toggleFavorite,
+        onDeleteItem: _onDeleteItem,
+      );
+    } else if (_selectedTabIndex == 1) {
+      return NameList(
+        nameList: _nameList,
+        favoriteList: _favoriteList,
+        isListFavorite: true,
+        toggleFavorite: _toggleFavorite,
+        onDeleteItem: _onDeleteItem,
+      );
+    } else {
+      return NameList(
+        nameList: _nameList,
+        favoriteList: _favoriteList,
+        isListFavorite: false,
+        toggleFavorite: _toggleFavorite,
+        onDeleteItem: _onDeleteItem,
+      );
+    }
   }
 
   @override
@@ -74,9 +99,7 @@ class _TitlePageState extends State<TitlePage> {
       body: Container(
           margin: EdgeInsets.only(top: 15),
           child: Center(
-            child: ListView(
-                children: _createNameList()
-            ),
+            child: _getSelectedTabView()
           )
       ),
       floatingActionButton: FloatingActionButton(
